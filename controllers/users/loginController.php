@@ -6,9 +6,9 @@ class Login extends Controller
         parent::__construct();
     }
     public function login(){
-//$conditions = ['status'=>1, 'name'=>'guillaume'];
+$conditions = ['status'=>'r', 'name'=>'r'];
         $test = Model::findAll('admin',[
-            'conditions'=>'status'
+            'conditions'=>$conditions
         ]);
         print_r($test);
     }

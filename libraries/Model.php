@@ -4,7 +4,7 @@ class Model
 {
     static $connections = [];
     public $conf = 'default';
-    public $db;
+    private $db;
     public $id = 'id';
 
     /**
@@ -54,14 +54,14 @@ class Model
             if(!is_array($req['conditions'])){
                 $sql .= $req['conditions'];
             }else{
-                $cond =[];
+                //$cond =[];
                 foreach($req['conditions'] as $k=>$v){
                     if(!is_numeric($v)){
                         $v = mysqli_real_escape_string($this->db, $v);
                     }
                     $cond[] = "$k=$v";
                 }
-                $sql .= implode(' AND ', $cond);
+                $sql .= implode(' , ', $cond);
             }
         }
         if(isset($req['limit'])){
