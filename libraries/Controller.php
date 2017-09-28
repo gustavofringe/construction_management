@@ -1,7 +1,13 @@
 <?php
 class Controller
 {
-    public function __construct() {}
-
-
+    public $session;
+    public $form;
+    public $service;
+    public function __construct()
+    {
+        $this->session = new Session();
+        $this->form = new Form();
+        $this->service = new Service();
+    }
 }

@@ -7,15 +7,17 @@ class Route
      */
     private $url = false;
     private $controller;
+    public $view;
 
     public function __construct()
     {
         $this->getUrl();
         if (empty($this->url[0])) {
             $this->loadControllerDefault();
-        }
+        }else {
             $this->loadController();
             $this->methodExist();
+        }
     }
 
     /**
@@ -35,7 +37,7 @@ class Route
      */
     private function loadControllerDefault()
     {
-        require_once ROOT . '/controller/homeController.php';
+        require_once ROOT . '/controllers/homeController.php';
         $this->controller = new Home();
         $this->controller->home();
     }
@@ -45,9 +47,11 @@ class Route
      */
     private function loadController()
     {
-        $page = ROOT . '/controller/' . $this->url[0] . '/' . $this->url[1] . 'Controller.php';
+        $page = ROOT . '/controllers/' . $this->url[0] . '/' . $this->url[1] . 'Controller.php';
         if (file_exists($page)) {
             require $page;
+            $this->view = new View($this->url[0],$this->url[1]);
+            $this->view->render([$this->url[1]]);
             $this->controller = new $this->url[1];
             $this->loadModel($this->url[1]);
         } else {
@@ -98,7 +102,7 @@ class Route
         $path = ROOT.'/model/'.$this->url[0].'/'.$name.'Model.php';
         if(file_exists($path)){
             require ROOT.'/model/'.$this->url[0].'/'.$name.'Model.php';
-            $modelName = $name;
+            $modelName = $name.'Model';
             $this->model = new $modelName();
         }
     }
@@ -108,7 +112,7 @@ class Route
      */
     private function errors()
     {
-        require ROOT . '/controller/errors.php';
+        require ROOT . '/controllers/errorsController.php';
         $this->controller = new Errors();
         $this->controller->index();
         die();
