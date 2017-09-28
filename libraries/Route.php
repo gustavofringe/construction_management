@@ -49,7 +49,7 @@ class Route
         if (file_exists($page)) {
             require $page;
             $this->controller = new $this->url[1];
-            $this->controller->loadModel('user');
+            $this->loadModel($this->url[1]);
         } else {
             $this->errors();
             die();
@@ -91,6 +91,15 @@ class Route
             default:
                 $this->errors();
                 break;
+        }
+    }
+    private function loadModel($name)
+    {
+        $path = ROOT.'/model/'.$this->url[0].'/'.$name.'Model.php';
+        if(file_exists($path)){
+            require ROOT.'/model/'.$this->url[0].'/'.$name.'Model.php';
+            $modelName = $name;
+            $this->model = new $modelName();
         }
     }
 
