@@ -6,17 +6,10 @@ class Login extends Controller
         parent::__construct();
     }
     public function login(){
-$test = 'det';
-$test2 = 'on';
-$test3 = 'ateur';
-$test4 = 'acteur';
-        $test = Model::find([],'post',[
-            'aaa'=>$test,
-            'zzz' =>$test2,
-            'prout' =>$test3,
-            'proutprout'=>$test4,
-            'taslim'=>'taslim'
+//$conditions = ['status'=>1, 'name'=>'guillaume'];
+        $test = Model::findAll('admin',[
+            'conditions'=>'status'
         ]);
-        debug($test);
+        print_r($test);
     }
 }
