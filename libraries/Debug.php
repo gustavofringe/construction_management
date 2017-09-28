@@ -1,5 +1,5 @@
 <?php
-function dd($var)
+function debug($var)
 {
     $debug = debug_backtrace();
     ?>

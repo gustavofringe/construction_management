@@ -23,4 +23,30 @@ class Model
             die();
         }
     }
+    /**
+     * @param $table
+     * @param array $cond
+     * @return bool|string
+     */
+    public function find(array $select,$table, array $cond){
+        $sql = 'SELECT ';
+        if(isset($select) && !empty($select)){
+            foreach ($select as $selected) {
+                $sql .= $selected . ' ,';
+            }
+            $sql = substr($sql,0,-1);
+        }else{
+            $sql .= '*';
+        }
+            $sql .=' FROM '.$table;
+        if(isset($cond) && !empty($cond)) {
+            $sql .= ' WHERE ';
+            foreach ($cond as $k=>$v){
+                $sql .= $k. ' = ' .$v.' ,';
+            }
+        }
+        $sql = substr($sql,0,-1);
+        //$sql = mysqli_real_escape_string($pdo,$sql);
+        return $sql;
+    }
 }

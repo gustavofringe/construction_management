@@ -51,9 +51,9 @@ class Route
         if (file_exists($page)) {
             require $page;
             $this->view = new View($this->url[0],$this->url[1]);
-            $this->view->render([$this->url[1]]);
-            $this->controller = new $this->url[1];
             $this->loadModel($this->url[1]);
+            $this->controller = new $this->url[1];
+            $this->view->render([$this->url[1]]);
         } else {
             $this->errors();
             die();
@@ -97,6 +97,10 @@ class Route
                 break;
         }
     }
+
+    /**
+     * @param $name
+     */
     private function loadModel($name)
     {
         $path = ROOT.'/model/'.$this->url[0].'/'.$name.'Model.php';
