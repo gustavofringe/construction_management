@@ -6,18 +6,17 @@ class View {
   public $layout = 'default';
   public $request;
   public $errors;
+  public $req;
 
   public function __construct($controller, $action) {
     $this->file = ROOT."/views/".$controller.'/' . $action . ".php";
   }
 
-  public function render(array $data,$errors=null) {
-    $this->errors = $errors;
+  public function render(array $data) {
     $content = $this->renderFile($this->file, $data);
     $view = $this->renderFile(ROOT.'/views/layouts/'.$this->layout.'.php',
       array('content' => $content));
       return $view;
-      return $errors;
   }
 
   private function renderFile($file, $data) {

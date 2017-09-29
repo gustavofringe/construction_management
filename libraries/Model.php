@@ -4,7 +4,7 @@ class Model
 {
     static $connections = [];
     public $conf = 'default';
-    public $db;
+    static $db;
     public $id = 'id';
     public $pdo;
 
@@ -12,25 +12,21 @@ class Model
      * database connection
      * Model constructor.
      */
-    public function __construct()
+    public function __construct($db = null)
     {
             $conf = Conf::$databases[$this->conf];
         try {
-            /*$pdo = new PDO(
+            $pdo = new PDO(
                 'mysql:host=' . $conf['host'] . ';dbname=' . $conf['database'] . ';',
                 $conf['login'],
                 $conf['password'],
                 array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
-            );*/
-            $this->pdo = new mysqli($conf['host'], $conf['login'], $conf['password'], $conf['database']);
-            $this->db = $this->pdo;
-            return $this->db;
-            /*$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);*/
-            /*Model::$connections[$this->conf] = $pdo;
-            $this->db = $pdo;
-            return $this->db;*/
-            print_r($this->pdo);
+            );
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+            Model::$connections[$this->conf] = $pdo;
+            Model::$db = $pdo;
+            //return Model::$db;
         } catch (PDOException $e) {
             echo 'Impossible de se connecter à la base de donnée';
             echo $e->getMessage();
@@ -43,7 +39,7 @@ class Model
      * @param array $req
      * @return array
      */
-    public function findAll($table,array $req){
+    public static function findAll($table,array $req){
         $sql = 'SELECT ';
         if(isset($req['fields'])){
             if(is_array($req['fields'])){
@@ -65,12 +61,12 @@ class Model
             if(!is_array($req['conditions'])){
                 $sql .= $req['conditions'];
             }else{
-                //$cond =[];
+                $cond =[];
                 foreach($req['conditions'] as $k=>$v){
                     if(!is_numeric($v)){
-                        $v = mysqli_real_escape_string($this->db, $v);
+                        $v="'".$v."'";
                     }
-                    $cond[] = "$k=$v";
+                    $cond[] = $k."=". $v;
                 }
                 $sql .= implode(' , ', $cond);
             }
@@ -81,10 +77,12 @@ class Model
         if(isset($req['order'])){
             $sql .= ' ORDER BY '.$req['order'];
         }
-        return $sql;
-        /*$pre = $this->db->prepare($sql);
+
+        //return $sql;
+        //print_r(Model::$db);
+        $pre = Model::$db->prepare($sql);
         $pre->execute();
-        return $pre->fetchAll(PDO::FETCH_OBJ);*/
+        return $pre->fetchAll();
     }
 
     /**
@@ -92,8 +90,8 @@ class Model
      * @param $req
      * @return mixed
      */
-    public function findFirst($req){
-        return current($this->findAll($req));
+    public function findFirst($table,$req){
+        return current(Model::findAll($table,$req));
     }
 
     /**
@@ -102,6 +100,6 @@ class Model
      */
     public function delete($table, $id){
         $sql = "DELETE FROM {$table} WHERE {$this->id} = $id";
-        $this->db->query($sql);
+        Model::$db->query($sql);
     }
 }

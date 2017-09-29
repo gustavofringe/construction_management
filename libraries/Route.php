@@ -47,10 +47,10 @@ class Route
      */
     private function loadController()
     {
+        $this->view = new View($this->url[0],$this->url[1]);
         $page = ROOT . '/controllers/' . $this->url[0] . '/' . $this->url[1] . 'Controller.php';
         if (file_exists($page)) {
             require $page;
-            $this->view = new View($this->url[0],$this->url[1]);
             $this->loadModel($this->url[1]);
             $this->controller = new $this->url[1];
             $this->view->render([$this->url[1]]);

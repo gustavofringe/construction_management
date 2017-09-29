@@ -1,4 +1,6 @@
 # Include your project-specific ignores in this file
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 /.idea
-/libraries/Conf.php
+libraries/Conf.php
+Supprimerait controllers/admin/
+Supprimerait model/admin/

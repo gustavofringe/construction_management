@@ -1,5 +1,8 @@
-<?php 
-$this->title = "Se connecter";?>
+<?php
+$this->title = "Se connecter";
+echo $this->error;
+    echo $this->test->name;
+?>
     <h1>Se connecter</h1>
     <form action="" method="POST">
         <div class="form-group">
