@@ -4,8 +4,9 @@ class Model
 {
     static $connections = [];
     public $conf = 'default';
-    private $db;
+    public $db;
     public $id = 'id';
+    public $pdo;
 
     /**
      * database connection
@@ -15,16 +16,21 @@ class Model
     {
             $conf = Conf::$databases[$this->conf];
         try {
-            $pdo = new PDO(
+            /*$pdo = new PDO(
                 'mysql:host=' . $conf['host'] . ';dbname=' . $conf['database'] . ';',
                 $conf['login'],
                 $conf['password'],
                 array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
-            );
-            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-            $this->db = $pdo;
+            );*/
+            $this->pdo = new mysqli($conf['host'], $conf['login'], $conf['password'], $conf['database']);
+            $this->db = $this->pdo;
             return $this->db;
+            /*$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);*/
+            /*Model::$connections[$this->conf] = $pdo;
+            $this->db = $pdo;
+            return $this->db;*/
+            print_r($this->pdo);
         } catch (PDOException $e) {
             echo 'Impossible de se connecter à la base de donnée';
             echo $e->getMessage();
@@ -49,6 +55,11 @@ class Model
             $sql .='*';
         }
         $sql .= ' FROM ' . $table;
+        if(isset($req['join'])){
+            foreach($req['join'] as $k=>$v){
+                $sql .= 'LEFT JOIN '.$k.' ON '.$v.' ';
+            }
+        }
         if(isset($req['conditions'])){
             $sql .= ' WHERE ';
             if(!is_array($req['conditions'])){
@@ -66,6 +77,9 @@ class Model
         }
         if(isset($req['limit'])){
             $sql .= 'LIMIT '.$req['limit'];
+        }
+        if(isset($req['order'])){
+            $sql .= ' ORDER BY '.$req['order'];
         }
         return $sql;
         /*$pre = $this->db->prepare($sql);
