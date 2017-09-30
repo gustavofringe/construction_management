@@ -8,8 +8,13 @@ class Home extends Controller
 
     }
     public function home(){
-        //$this->loadView('home');
-        $view = new View('pages', 'home');
-        $view->render(['home']);
+
+        $var['test'] = $this->model->findAll('admin',[]);
+        $var['errors'] = 'test';
+        //print_r($var);
+        foreach ($var['test'] as $k=>$v){
+            echo $v->name;
+        }
+        $this->views->set($var);
     }
 }

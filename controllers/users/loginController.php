@@ -1,25 +1,26 @@
 <?php
 class Login extends Controller
 {
-    public $view;
-    public $test;
-    public $errors;
+    /**
+     * Login constructor.
+     */
     public function __construct()
     {
         parent::__construct();
-
-        $this->view = new View('users','login');
+        //print_r($view);
+        echo 'loginController';
     }
-    public function login(){
-        $conditions = ['name'=>'franck'];
-        $test = Model::findFirst('admin',[
-            'conditions'=>$conditions
-        ]);
-        echo $test->name;
 
-        $error = "test";
-        $this->set($test);
-        $this->set($error);
-        //$this->view->render(['login'],$errors);
+    /**
+     *
+     */
+    public function login(){
+        $var['test'] = $this->model->findAll('admin',[]);
+        $var['errors'] = 'test';
+        //print_r($var);
+        foreach ($var['test'] as $k=>$v){
+            echo $v->name;
+        }
+        $this->views->set($var);
     }
 }

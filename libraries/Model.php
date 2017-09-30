@@ -14,6 +14,7 @@ class Model
      */
     public function __construct($db = null)
     {
+        echo 'model ';
             $conf = Conf::$databases[$this->conf];
         try {
             $pdo = new PDO(
@@ -40,6 +41,7 @@ class Model
      * @return array
      */
     public static function findAll($table,array $req){
+        echo ' Model::FindAll ';
         $sql = 'SELECT ';
         if(isset($req['fields'])){
             if(is_array($req['fields'])){

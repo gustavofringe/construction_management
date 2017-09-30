@@ -5,10 +5,10 @@ class Errors extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->view = new View('errors', '404');
+        $this->view = new View();
     }
     public function index(){
-        $this->view->render(['404']);
+        $this->view->render('errors', '404');
         die();
     }
 }

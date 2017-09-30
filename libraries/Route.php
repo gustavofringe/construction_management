@@ -2,21 +2,25 @@
 
 class Route
 {
+    private $url = false;
+    private $controller;
+    public $views;
+
     /**
      * Route constructor.
      */
-    private $url = false;
-    private $controller;
-    public $view;
-
     public function __construct()
     {
+        $this->views = new View();
         $this->getUrl();
         if (empty($this->url[0])) {
             $this->loadControllerDefault();
-        }else {
+        } elseif(!empty($this->url[0])&& !empty($this->url[1])) {
             $this->loadController();
-            $this->methodExist();
+            $this->views->render($this->url[0], $this->url[1]);
+        }else{
+            $this->errors();
+            die();
         }
     }
 
@@ -29,7 +33,6 @@ class Route
         $url = rtrim($url, "'");
         $url = filter_var($url, FILTER_SANITIZE_URL);
         $this->url = explode("/", $url);
-
     }
 
     /**
@@ -40,6 +43,7 @@ class Route
         require_once ROOT . '/controllers/homeController.php';
         $this->controller = new Home();
         $this->controller->home();
+        $this->views->render('pages', 'home');
     }
 
     /**
@@ -47,17 +51,19 @@ class Route
      */
     private function loadController()
     {
-        $this->view = new View($this->url[0],$this->url[1]);
         $page = ROOT . '/controllers/' . $this->url[0] . '/' . $this->url[1] . 'Controller.php';
+
         if (file_exists($page)) {
             require $page;
-            $this->loadModel($this->url[1]);
-            $this->controller = new $this->url[1];
-            $this->view->render([$this->url[1]]);
+            //$this->loadModel($this->url[1]);
+            //$this->controller = new $this->url[1];
+            //$this->controller->{$this->url[1]}();
+            $this->methodExist();
         } else {
             $this->errors();
             die();
         }
+
     }
 
     /**
@@ -70,6 +76,7 @@ class Route
         if ($length > 2) {
             if (!method_exists($this->controller, $this->url[2])) {
                 $this->errors();
+                die();
             }
         }
         switch ($length) {
@@ -103,10 +110,10 @@ class Route
      */
     private function loadModel($name)
     {
-        $path = ROOT.'/model/'.$this->url[0].'/'.$name.'Model.php';
-        if(file_exists($path)){
-            require ROOT.'/model/'.$this->url[0].'/'.$name.'Model.php';
-            $modelName = $name.'Model';
+        $path = ROOT . '/model/' . $this->url[0] . '/' . $name . 'Model.php';
+        if (file_exists($path)) {
+            require ROOT . '/model/' . $this->url[0] . '/' . $name . 'Model.php';
+            $modelName = $name . 'Model';
             $this->model = new $modelName();
         }
     }
