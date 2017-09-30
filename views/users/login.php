@@ -1,5 +1,4 @@
 <?php
-echo $test;
 $this->title = "Se connecter";
 
 ?>
@@ -11,7 +10,7 @@ $this->title = "Se connecter";
         </div>
 
         <div class="form-group">
-            <label for="">Mot de passe <a href="<?= BASE_URL; ?>/forget">(mot de passe oublié)</a></label>
+            <label for="">Mot de passe</label>
             <input type="password" name="password" class="form-control"/>
         </div>
 

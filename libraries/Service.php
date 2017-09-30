@@ -1,9 +1,18 @@
 <?php
 class Service{
-    public function checkPassword($passConf, $pass){
-        if (empty($pass) || ($pass != $passConf)) {
-            $errors = "Vous devez rentrer le même mot de passe ";
-            return $errors;
+    public function hashPass($pass){
+        if(isset($pass)){
+            $passHash = sha1($pass);
+            return $passHash;
+        }
+    }
+    public function checkPassword($password, $passuser, $user){
+        if($password == $passuser){
+            Session::write('user',$user);
+            Session::setFlash("Vous êtes maintenant connecté");
+
+        }else{
+            Session::setFlash("Identifiant ou mot de passe incorrect",'danger');
         }
     }
 }

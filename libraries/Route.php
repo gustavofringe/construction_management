@@ -12,6 +12,8 @@ class Route
     public function __construct()
     {
         $this->views = new View();
+        //$test = call_user_func_array(array($this->views,$this->controller),$this->url);
+        //print_r($test);
         $this->getUrl();
         if (empty($this->url[0])) {
             $this->loadControllerDefault();
@@ -25,7 +27,7 @@ class Route
     }
 
     /**
-     *
+     *cut the url
      */
     private function getUrl()
     {

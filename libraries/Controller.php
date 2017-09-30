@@ -16,6 +16,5 @@ class Controller
         $this->session = new Session();
         $this->form = new Form();
         $this->service = new Service();
-        echo ' Controller ';
     }
 }

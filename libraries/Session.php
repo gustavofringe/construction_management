@@ -15,7 +15,7 @@ class Session
      * @param $message
      * @param string $type
      */
-    public function setFlash($message, $type = 'success')
+    public static function setFlash($message, $type = 'success')
     {
         $_SESSION['flash'][$type] = $message;
     }
@@ -24,7 +24,7 @@ class Session
      * @param $user
      * @return bool
      */
-    public function isLogged($user){
+    public static function isLogged($user){
         return isset($_SESSION[$user]);
     }
 
@@ -32,18 +32,24 @@ class Session
      * @param $key
      * @param $value
      */
-    public function write($key, $value){
+    public static function write($key, $value){
         $_SESSION[$key] = $value;
     }
 
     /**
      * @return string
      */
-    public function flash(){
+    public static function flash(){
         if(isset($_SESSION['flash']['message'])){
             $html = '<div class="alert alert- '.$_SESSION['flash']['type'].'"><p>'.$_SESSION['flash']['message'].'</p></div>';
             $_SESSION['flash'] = array();
             return $html;
         }
+    }
+    public static function logout(){
+        session_start();
+        session_destroy();
+        View::redirect(BASE_URL);
+        die();
     }
 }

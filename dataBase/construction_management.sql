@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  mer. 27 sep. 2017 à 11:24
--- Version du serveur :  10.1.26-MariaDB
--- Version de PHP :  7.1.9
+-- Généré le :  sam. 30 sep. 2017 à 21:16
+-- Version du serveur :  10.1.28-MariaDB
+-- Version de PHP :  7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,6 +34,13 @@ CREATE TABLE `admin` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `admin`
+--
+
+INSERT INTO `admin` (`id`, `name`, `password`) VALUES
+(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997');
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +51,15 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'house'),
+(2, 'woodHouse'),
+(3, 'apartment');
 
 -- --------------------------------------------------------
 
@@ -68,6 +84,14 @@ CREATE TABLE `foreman` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `foreman`
+--
+
+INSERT INTO `foreman` (`id`, `name`, `password`) VALUES
+(1, 'franck', '6a5810b27035f980ef8adc0e8007b098fdd1d9d8'),
+(2, 'robert', '12e9293ec6b30c7fa8a0926af42807e929c1684f');
+
 -- --------------------------------------------------------
 
 --
@@ -83,7 +107,8 @@ CREATE TABLE `works` (
   `document_id` int(11) NOT NULL,
   `deadline` date NOT NULL,
   `foreman_id` int(11) NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `online` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -131,13 +156,13 @@ ALTER TABLE `works`
 -- AUTO_INCREMENT pour la table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `documents`
@@ -149,7 +174,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT pour la table `foreman`
 --
 ALTER TABLE `foreman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `works`

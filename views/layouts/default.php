@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title><?= isset($this->title)?$this->title: 'Construction'; ?></title>
+        <title><?= isset($title)?$title: 'Construction'; ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -45,7 +45,7 @@
           </ul>
         </div>
       </nav>
-        <?php //echo $this->Session->flash();?>
+        <?php echo Session::flash();?>
         <?php if (isset($_SESSION['flash'])): ?>
             <?php foreach ($_SESSION['flash'] as $type => $message): ?>
                 <div class="alert alert-<?= $type; ?>">

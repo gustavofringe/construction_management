@@ -1,6 +1,4 @@
-<?php $this->title = 'Accueil';
-echo $test;
-?>
+
 <h1>Se connecter</h1>
 <form action="" method="POST">
     <div class="form-group">
