@@ -14,7 +14,7 @@ class Model
      */
     public function __construct($db = null)
     {
-            $conf = Conf::$databases[$this->conf];
+        $conf = Conf::$databases[$this->conf];
         try {
             $pdo = new PDO(
                 'mysql:host=' . $conf['host'] . ';dbname=' . $conf['database'] . ';',
@@ -39,43 +39,44 @@ class Model
      * @param array $req
      * @return array
      */
-    public static function findAll($table,array $req){
+    public static function findAll($table, array $req)
+    {
         $sql = 'SELECT ';
-        if(isset($req['fields'])){
-            if(is_array($req['fields'])){
+        if (isset($req['fields'])) {
+            if (is_array($req['fields'])) {
                 $sql .= implode(', ', $req['fields']);
-            }else{
+            } else {
                 $sql .= $req['fields'];
             }
-        }else{
-            $sql .='*';
+        } else {
+            $sql .= '*';
         }
         $sql .= ' FROM ' . $table;
-        if(isset($req['join'])){
-            foreach($req['join'] as $k=>$v){
-                $sql .= 'LEFT JOIN '.$k.' ON '.$v.' ';
+        if (isset($req['join'])) {
+            foreach ($req['join'] as $k => $v) {
+                $sql .= 'LEFT JOIN ' . $k . ' ON ' . $v . ' ';
             }
         }
-        if(isset($req['conditions'])){
+        if (isset($req['conditions'])) {
             $sql .= ' WHERE ';
-            if(!is_array($req['conditions'])){
+            if (!is_array($req['conditions'])) {
                 $sql .= $req['conditions'];
-            }else{
-                $cond =[];
-                foreach($req['conditions'] as $k=>$v){
-                    if(!is_numeric($v)){
-                        $v="'".$v."'";
+            } else {
+                $cond = [];
+                foreach ($req['conditions'] as $k => $v) {
+                    if (!is_numeric($v)) {
+                        $v = "'" . $v . "'";
                     }
-                    $cond[] = $k."=". $v;
+                    $cond[] = $k . "=" . $v;
                 }
-                $sql .= implode(' , ', $cond);
+                $sql .= implode(' AND ', $cond);
             }
         }
-        if(isset($req['limit'])){
-            $sql .= 'LIMIT '.$req['limit'];
+        if (isset($req['limit'])) {
+            $sql .= 'LIMIT ' . $req['limit'];
         }
-        if(isset($req['order'])){
-            $sql .= ' ORDER BY '.$req['order'];
+        if (isset($req['order'])) {
+            $sql .= ' ORDER BY ' . $req['order'];
         }
 
         //return $sql;
@@ -90,16 +91,27 @@ class Model
      * @param $req
      * @return mixed
      */
-    public function findFirst($table,$req){
-        return current(Model::findAll($table,$req));
+    public function findFirst($table, $req)
+    {
+        return current(Model::findAll($table, $req));
     }
 
     /**
      * delete by id
      * @param $id
      */
-    public function delete($table, $id){
+    public function delete($table, $id)
+    {
         $sql = "DELETE FROM {$table} WHERE {$this->id} = $id";
         Model::$db->query($sql);
+    }
+
+    /**
+     * @param $data
+     */
+    public function update($table, $data, $id)
+    {
+        $sql = 'UPDATE ' . $table . ' SET ' . $data . '=0' .' WHERE '. $id . '=' . $id;
+        $pre = Model::$db->query($sql);
     }
 }
