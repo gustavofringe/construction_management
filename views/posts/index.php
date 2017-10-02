@@ -1,6 +1,6 @@
-<?php if(isset($cat)): ?>
+<?php if(isset($cat)&&isset($works)): ?>
 <h1><?php echo $categories[($cat)-1]->name; ?></h1>
-<?php endif;?>
+
 <table class="table table-inverse">
     <thead>
     <tr>
@@ -15,7 +15,7 @@
     <?php foreach ($works as $work):?>
         <?php if($work->online == 1): ?>
     <tr>
-        <td><?= $work->name; ?></td>
+        <td><?= $work->title; ?></td>
         <td><?= $work->content; ?></td>
         <td><?= $work->status; ?></td>
         <td><?= date('d/m/Y', strtotime($work->deadline)); ?></td>
@@ -30,3 +30,4 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+<?php endif;?>

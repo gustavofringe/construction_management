@@ -9,7 +9,6 @@ class Home extends Controller
     }
     public function home(){
         $var['title'] = 'Se connecter';
-        print_r($_SESSION);
         if(isset($_POST['password'])) {
             $password = $this->service->hashPass($_POST['password']);
             $admins = $this->model->findAll('admin', [

@@ -32,15 +32,9 @@
 
     <div class="collapse navbar-collapse" id="containerNavbar">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="<?= BASE_URL; ?>">Home <span class="sr-only">(current)</span></a>
-            </li>
             <?php if (!isset($_SESSION['user']) && !isset($_SESSION['admin'])): ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= BASE_URL; ?>/users/login">Se connecter</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= BASE_URL; ?>/users/register">S'enregistrer</a>
+                    <a class="nav-link" href="">management works</a>
                 </li>
             <?php else: ?>
             <li class="nav-item">
@@ -50,6 +44,8 @@
         </ul>
     </div>
     <?php if (!isset($_SESSION['admin'])):?>
+        <p>
+            Choice your category</p>
     <form action="" method="post" name="categori">
     <select class="form-control nav-item" name="categori" onchange="document.forms.categori.submit();">
         <option value="test">Categories</option>

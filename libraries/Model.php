@@ -5,7 +5,7 @@ class Model
     static $connections = [];
     public $conf = 'default';
     static $db;
-    public $id = 'id';
+    static $id;
     public $pdo;
 
     /**
@@ -133,13 +133,12 @@ class Model
                     }
                     $cond[] = $k . "=" . $v;
                 }
-                $sql .= implode(' AND ', $cond);
+                $sql .= implode(' , ', $cond);
             }
         }
         //return $sql;
         $pre = Model::$db->prepare($sql);
         $pre->execute();
-        $post_id = $pre->lastInsertId();
-        return $post_id;
+        Model::$id = Model::$db->lastInsertId();
     }
 }

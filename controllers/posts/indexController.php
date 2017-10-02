@@ -15,13 +15,15 @@ class Index extends Controller
         $id = $_SESSION['user']->id;
         if (isset($_POST['categori'])) {
             $var['cat'] = $_POST['categori'];
+
+            //condition for work
+            $cond = ['foreman_id' => $id, 'category_id' => $var['cat']];
+
+            //search all works
+            $var['works'] = $this->model->findAll('works', [
+                'conditions' => $cond
+            ]);
         }
-        //condition for work
-        $cond = ['foreman_id' => $id, 'category_id' => $var['cat']];
-        //search all works
-        $var['works'] = $this->model->findAll('works', [
-            'conditions' => $cond
-        ]);
         //recover categories
         $var['categories'] = $this->model->findAll('categories', []);
         // send variable at view

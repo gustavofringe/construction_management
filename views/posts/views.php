@@ -14,7 +14,7 @@
     <?php foreach ($works as $work):?>
             <tr>
                 <th><?php echo $categories[($work->category_id)-1]->name;?></th>
-            <td><?= $work->name; ?></td>
+            <td><?= $work->title; ?></td>
             <td><?= $work->content; ?></td>
             <td><?= $work->status; ?></td>
             <td><?= date('d/m/Y', strtotime($work->deadline)); ?></td>

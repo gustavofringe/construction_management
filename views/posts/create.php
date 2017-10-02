@@ -22,7 +22,7 @@
         </div>
     <div class="form-group">
         <label for="category">Category</label>
-        <select class="form-control" id="category" value="" name="category">
+        <select class="form-control" id="category" value="" name="category_id">
             <?php foreach ($categories as $category): ?>
                 <option class="nav-link" value="<?= $category->id?>"><?= $category->name; ?></option>
             <?php endforeach; ?>
@@ -30,7 +30,7 @@
     </div>
     <div class="form-group">
         <label for="foreman">Foreman</label>
-        <select class="form-control" id="foreman" value="" name="foreman">
+        <select class="form-control" id="foreman" value="" name="foreman_id">
             <?php foreach ($foremans as $foreman): ?>
                 <option class="nav-link" value="<?= $foreman->id?>"><?= $foreman->name; ?></option>
             <?php endforeach; ?>
