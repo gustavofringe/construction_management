@@ -136,8 +136,10 @@ class Model
                 $sql .= implode(' AND ', $cond);
             }
         }
-        return $sql;
-        //$pre = Model::$db->prepare($sql);
-        //$pre->execute();
+        //return $sql;
+        $pre = Model::$db->prepare($sql);
+        $pre->execute();
+        $post_id = $pre->lastInsertId();
+        return $post_id;
     }
 }

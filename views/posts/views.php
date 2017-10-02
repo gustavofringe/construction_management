@@ -1,4 +1,4 @@
-<a href="<?= BASE_URL;?>/posts/create" class="btn btn-primary"></a>
+<a href="<?= BASE_URL;?>/posts/create" class="btn btn-primary">Create project</a>
 <table class="table table-inverse">
     <thead>
     <tr>
