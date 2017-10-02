@@ -14,6 +14,7 @@ class Session
     /**
      * @param $message
      * @param string $type
+     * return flash message at view
      */
     public static function setFlash($message, $type = 'success')
     {
@@ -46,6 +47,10 @@ class Session
             return $html;
         }
     }
+
+    /**
+     * deconnect user
+     */
     public static function logout(){
         session_start();
         session_destroy();

@@ -21,7 +21,7 @@
             <td>
                 <form action="" method="post">
                     <a class="btn btn-primary">edit</a>
-                    <a href="<?= BASE_URL;?>/posts/index/update/<?= $work->id; ?>" class="btn btn-danger">delete</a>
+                    <a href="<?= BASE_URL;?>/posts/views/delete/<?= $work->id; ?>" class="btn btn-danger">delete</a>
                 </form>
             </td>
         </tr>

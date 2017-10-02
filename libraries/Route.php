@@ -80,17 +80,21 @@ class Route
             }
         }
         switch ($length) {
-            case 5:
+            case 6:
                 //$controller->method(param1, param2,param3)
                 $this->controller->{$this->url[2]}($this->url[3], $this->url[4], $this->url[5]);
                 break;
-            case 4:
+            case 5:
                 //$controller->method(param1, param2)
                 $this->controller->{$this->url[2]}($this->url[3], $this->url[4]);
                 break;
-            case 3:
+            case 4:
                 //$controller->method(param1)
                 $this->controller->{$this->url[2]}($this->url[3]);
+                break;
+            case 3:
+                //$controller->method(param1)
+                $this->controller->{$this->url[2]}();
                 break;
             case 2:
                 //$controller->method()

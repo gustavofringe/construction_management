@@ -16,6 +16,9 @@ class Views extends Controller{
         $this->views->set($var);
     }
     public function create(){
-
+        $var['title'] = "Create";
+        $var['categories'] = $this->model->findAll('categories',[]);
+        $var['foremans'] = $this->model->findAll('foreman',[]);
+        $this->views->set($var);
     }
 }

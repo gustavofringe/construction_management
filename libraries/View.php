@@ -5,29 +5,8 @@ class View
     private $layout = 'default';
     public $vars = array();
     static $var = [];
-
     /**
-     * View constructor.
-     * @param null $controller
-     * @param null $action
-     */
-   /* public function __construct()
-    {
-       $var = self::$var;
-       return $var;
-        //$this->file = ROOT . "/views/" . $controller . '/' . $action . ".php";
-    }*/
-    /**
-     * @param array $data
-     */
-    /* public function render(array $data)
-     {
-         $content = $this->renderFile($this->file, $data);
-         $views.php = $this->renderFile(ROOT . '/views/layouts/' . $this->layout . '.php',
-             array('content' => $content));
-         return $views.php;
-     }*/
-    /**
+     * send variable at view
      * @param $key
      * @param null $value
      */
@@ -42,6 +21,11 @@ class View
             View::$var = $vars;
         }
     }
+    /**
+     * render view
+     * @param null $folder
+     * @param null $view
+     */
     public function render($folder = null, $view = null)
     {
         //extract variables for views
@@ -57,12 +41,9 @@ class View
         ob_end_clean();
         //require layouts
         require ROOT . DS . 'views' . DS . 'layouts' . DS . $this->layout . '.php';
-
     }
-
-
-
     /**
+     * redirect view
      * @param $url
      * @param null $code
      */
@@ -73,22 +54,4 @@ class View
         }
         header("Location: " . $url);
     }
-
-    /**
-     * @param $file
-     * @param $data
-     * @throws Exception
-     */
-    /*private function renderFile($file, $data)
-    {
-        if (file_exists($file)) {
-            extract($this->vars);
-            ob_start();
-            require $file;
-            $content = ob_get_clean();
-            require_once ROOT . '/views/layouts/' . $this->layout . '.php';
-        } else {
-            throw new Exception("Fichier '$file' introuvable");
-        }
-    }*/
 }

@@ -114,4 +114,30 @@ class Model
         $sql = 'UPDATE ' . $table . ' SET ' . $data . '=0' .' WHERE '. $id . '=' . $id;
         $pre = Model::$db->query($sql);
     }
+
+    /**
+     * @param $table
+     * @param array $insert
+     */
+    public function save($table, array $insert){
+        $sql = 'INSERT INTO '.$table;
+        if (isset($insert['conditions'])) {
+            $sql .= ' SET ';
+            if (!is_array($insert['conditions'])) {
+                $sql .= $insert['conditions'];
+            } else {
+                $cond = [];
+                foreach ($insert['conditions'] as $k => $v) {
+                    if (!is_numeric($v)) {
+                        $v = "'" . $v . "'";
+                    }
+                    $cond[] = $k . "=" . $v;
+                }
+                $sql .= implode(' AND ', $cond);
+            }
+        }
+        return $sql;
+        //$pre = Model::$db->prepare($sql);
+        //$pre->execute();
+    }
 }
