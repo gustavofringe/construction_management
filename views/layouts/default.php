@@ -47,6 +47,7 @@
 
         </ul>
     </div>
+    <?php if (!isset($_SESSION['admin'])):?>
     <form action="" method="post" name="categori">
     <select class="form-control nav-item" name="categori" onchange="document.forms.categori.submit();">
         <option value="test">Categories</option>
@@ -56,8 +57,9 @@
     </select>
     </form>
     <?php endif; ?>
+    <?php endif;?>
 </nav>
-<?php echo Session::flash(); ?>
+
 <?php if (isset($_SESSION['flash'])): ?>
     <?php foreach ($_SESSION['flash'] as $type => $message): ?>
         <div class="alert alert-<?= $type; ?>">

@@ -1,7 +1,5 @@
-
 <?php if(isset($cat)): ?>
-<h1><?php echo $categories[$cat]->name;?></h1>
-
+<h1><?php echo $categories[($cat)-1]->name; ?></h1>
 <?php endif;?>
 <table class="table table-inverse">
     <thead>

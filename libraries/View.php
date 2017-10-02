@@ -23,9 +23,9 @@ class View
     /* public function render(array $data)
      {
          $content = $this->renderFile($this->file, $data);
-         $view.php = $this->renderFile(ROOT . '/views/layouts/' . $this->layout . '.php',
+         $views.php = $this->renderFile(ROOT . '/views/layouts/' . $this->layout . '.php',
              array('content' => $content));
-         return $view.php;
+         return $views.php;
      }*/
     /**
      * @param $key
@@ -46,13 +46,13 @@ class View
     {
         //extract variables for views
         extract(View::$var);
-        //define view.php
+        //define views.php
         $view = ROOT . DS . 'views' . DS . $folder . DS . $view . '.php';
-        //start require view.php
+        //start require views.php
         ob_start();
-        //require view.php
+        //require views.php
         require($view);
-        //play view.php
+        //play views.php
         $content = ob_get_contents();
         ob_end_clean();
         //require layouts

@@ -9,6 +9,7 @@ class Home extends Controller
     }
     public function home(){
         $var['title'] = 'Se connecter';
+        print_r($_SESSION);
         if(isset($_POST['password'])) {
             $password = $this->service->hashPass($_POST['password']);
             $admins = $this->model->findAll('admin', [
@@ -24,7 +25,7 @@ class Home extends Controller
                     if ($password == $admin->password) {
                         Session::write('admin', $admin);
                         Session::setFlash("Vous êtes maintenant connecté");
-                        $this->views->redirect(BASE_URL . '/posts/view');
+                        $this->views->redirect(BASE_URL . '/posts/views');
                     } elseif ($password == $foreman->password) {
                         Session::write('user', $foreman);
                         Session::setFlash("Vous êtes maintenant connecté");
