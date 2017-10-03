@@ -9,20 +9,26 @@ class Create extends Controller
 
     public function create()
     {
+        //define title page
         $var['title'] = "Create";
+        // search categories & foreman for select view
         $var['categories'] = $this->model->findAll('categories', []);
         $var['foremans'] = $this->model->findAll('foreman', []);
-
+        //if post
         if (!empty($_POST)) {
+            //verify correctly title
             if (empty($_POST['title']) || !preg_match('/^[a-zA-Z0-9_\s]+$/', $_POST['title'])) {
                 $var['errors']['title'] = "Vous n'avez pas entrer un titre valide";
             }
+            //verify correctly url
             if (empty($_POST['url']) || !preg_match('/^[a-z\-0-9]+$/', $_POST['url'])) {
                 $var['errors']['url'] = "Vous n'avez pas entrer un url valide";
             }
+            //verify if content
             if (empty($_POST['content'])) {
                 $var['errors']['content'] = "Votre contenu est incorrect";
             }
+            //if no errors add project
             if (empty($var['errors'])) {
                 $path = ROOT . '/public/documents';
                 $file = $_FILES['file'];
@@ -57,6 +63,7 @@ class Create extends Controller
                 }
             }
         }
+        //set variables at view
         $this->views->set($var);
     }
 }
