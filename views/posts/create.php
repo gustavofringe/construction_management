@@ -1,3 +1,4 @@
+<a href="<?= BASE_URL; ?>/posts/views">Revenir aux vues</a>
 <h1>Create project</h1>
 <?php if (!empty($errors)): ?>
     <div class="alert alert-danger">

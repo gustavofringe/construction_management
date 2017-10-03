@@ -102,8 +102,9 @@ class Model
      */
     public function delete($table, $id)
     {
-        $sql = "DELETE FROM {$table} WHERE {$id} = $id";
-        Model::$db->query($sql);
+        $sql = "DELETE FROM ".$table." WHERE id=". $id;
+        //Model::$db->query($sql);
+        return $sql;
     }
 
     /**
