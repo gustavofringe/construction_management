@@ -24,11 +24,12 @@ class Views extends Controller{
         foreach ($document_id as $docu){
             $cond = ['id'=>$docu->document_id];
             $doc = $this->model->findFirst('documents',[
-                'conditions'=>'id='.$docu->document_id
+                'conditions'=>$cond
             ]);
+            print_r($doc->name);
             unlink(BASE_URL.'/public/documents/'.$doc->name);
             $this->model->delete('documents',[
-                'conditions'=>$cond
+                'conditions'=>'name='.$doc->name
             ]);
         }
         //die();
