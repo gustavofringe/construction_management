@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  lun. 02 oct. 2017 à 19:39
+-- Généré le :  mar. 03 oct. 2017 à 11:44
 -- Version du serveur :  10.1.28-MariaDB
 -- Version de PHP :  7.1.10
 
@@ -77,11 +77,8 @@ CREATE TABLE `documents` (
 --
 
 INSERT INTO `documents` (`id`, `name`) VALUES
-(1, 'bat2'),
-(2, 'bat4'),
-(20, 'semaine04.pdf'),
-(21, 'semaine04.pdf'),
-(22, 'semaine4-evaluation1.pdf');
+(32, 'angular.pdf'),
+(33, 'construction_management.pdf');
 
 -- --------------------------------------------------------
 
@@ -127,7 +124,7 @@ CREATE TABLE `works` (
 --
 
 INSERT INTO `works` (`id`, `title`, `content`, `url`, `category_id`, `document_id`, `foreman_id`, `status`, `deadline`, `online`) VALUES
-(4, '56 rue de la bouteille', '<pre><br /><br /></pre>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias aliquid aperiam cupiditate error, et eveniet fugit ipsa magnam odit placeat quaerat qui rem repudiandae tempora tenetur velit veniam veritatis?</p>', 'bouteille', 2, 22, 1, '', '2017-10-18', 1);
+(15, '130 rue hubert', '<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem enim impedit quasi quia. Architecto aspernatur aut dolor expedita, inventore mollitia neque provident qui sint. Animi cupiditate ipsum quae. Neque, numquam.</div>', 'hubert', 2, 33, 2, '', '2017-10-17', 1);
 
 --
 -- Index pour les tables déchargées
@@ -186,7 +183,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT pour la table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `foreman`
@@ -198,7 +195,7 @@ ALTER TABLE `foreman`
 -- AUTO_INCREMENT pour la table `works`
 --
 ALTER TABLE `works`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Contraintes pour les tables déchargées
